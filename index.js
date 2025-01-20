@@ -11,8 +11,9 @@ app.use(cors());
 app.use(express.json());
 
 const chats = require("./routes/chat-route");
-
+const webhook = require("./webhooks/wtp-webhook")
 app.use("", chats);
+app.use("", webhook);
 
 mongo
   .connect(DB)

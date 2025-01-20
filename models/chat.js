@@ -36,18 +36,25 @@ const userSchema = new mongoose.Schema(
       unique: true, // Ensure phone numbers are unique
       required: true,
     },
-    chats: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Message", // Reference to the Message model
-      },
-    ],
+    chats:
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Message", // Reference to the Message model
+    },
+
   },
   { timestamps: true }
 );
 
+const objSchema = new mongoose.Schema({
+  res: {
+    type: mongoose.Schema.Types.Mixed
+  }
+})
+
 // Models
+const ResMod = mongoose.model("Responses", objSchema)
 const Message = mongoose.model("Message", messageSchema);
 const User = mongoose.model("User", userSchema);
 
-module.exports = { Message, User };
+module.exports = { Message, User, ResMod };

@@ -47,7 +47,7 @@ router.get("/chat/:phone", async (req, res) => {
       return res.status(400).send("Phone number is required");
     }
     const user = await User.findOne({ phone }).populate("chats");
-    if (!user || !user.chats.length) {
+    if (!user) {
       return res.status(404).send("No chat found for this number");
     }
     res.status(200).json(user);
@@ -72,7 +72,7 @@ router.post("/send", async (req, res) => {
 
   try {
     // Sending the message to the external service
-    const response = await fetch(`${url}`, {
+    const response = await fetch(`${url}/messages`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
